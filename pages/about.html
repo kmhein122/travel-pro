@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="About Travel Pro - Our mission to connect travelers with authentic Thai communities.">
+    <title>About — Travel Pro</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script>!function () { var t = localStorage.getItem('theme') || 'light'; document.documentElement.setAttribute('data-theme', t); }();</script>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✈️</text></svg>">
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-inner">
+            <a href="../index.html" class="nav-logo">
+                <div class="logo-icon">✈</div>
+                <span>Travel<span class="text-orange">Pro</span></span>
+            </a>
+            <div class="nav-links" id="nav-links">
+                <a href="../index.html">Home</a>
+                <a href="about.html" class="active">About</a>
+                <a href="services.html">Services</a>
+                <a href="contact.html">Contact</a>
+                <button class="btn btn-primary btn-sm mobile-auth-btn" data-auth="login"
+                    style="display:none;">Login</button>
+            </div>
+            <div class="nav-actions">
+                <span class="nav-time" id="nav-datetime"></span>
+                <button class="theme-toggle" id="theme-toggle" title="Toggle dark/light mode"
+                    aria-label="Toggle theme">🌙</button>
+                <button class="btn btn-outline btn-sm" data-auth="login">Login</button>
+                <button class="btn btn-primary btn-sm" data-auth="signup">Sign Up</button>
+                <div class="user-menu" style="display:none;cursor:pointer;" onclick="openProfilePanel()">
+                    <div
+                        style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:0.85rem;">
+                        <span class="user-name">U</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- PAGE HEADER -->
+    <section class="page-header">
+        <h1>About Travel<span style="color:rgba(255,255,255,0.8)">Pro</span></h1>
+        <p>Connecting travelers with authentic local experiences since 2020</p>
+    </section>
+
+    <!-- MISSION -->
+    <section class="section">
+        <div class="container">
+            <div class="about-mission">
+                <div>
+                    <h2 class="section-title">Our <span class="text-orange">Mission</span></h2>
+                    <p style="color:var(--text-medium);line-height:1.8;margin-bottom:16px;">
+                        Travel Pro was born from a simple belief: the best travel experiences aren't found in tourist
+                        brochures — they're found in the hearts of local communities.
+                    </p>
+                    <p style="color:var(--text-medium);line-height:1.8;margin-bottom:24px;">
+                        We bridge the gap between curious travelers and passionate locals who want to share the hidden
+                        gems, authentic cuisines, and unique traditions that make Thailand truly extraordinary. Every
+                        package, every tour, every experience on our platform is crafted to support Thai communities
+                        while giving you memories that last a lifetime.
+                    </p>
+                    <div style="display:flex;gap:12px;">
+                        <a href="services.html" class="btn btn-primary">Explore Services</a>
+                        <a href="contact.html" class="btn btn-outline">Get in Touch</a>
+                    </div>
+                </div>
+                <div class="mission-image">🌏</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VALUES -->
+    <section class="section" style="background:var(--bg-light);">
+        <div class="container">
+            <h2 class="section-title text-center">What We <span class="text-orange">Stand For</span></h2>
+            <p class="section-subtitle text-center">Our core values drive every decision we make</p>
+            <div class="about-values">
+                <div class="value-card">
+                    <div class="value-icon">🤝</div>
+                    <h3>Community First</h3>
+                    <p>Every experience directly supports local Thai communities and artisans.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">🌱</div>
+                    <h3>Sustainable Travel</h3>
+                    <p>We promote eco-friendly tourism that preserves Thailand's natural beauty.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">✨</div>
+                    <h3>Authentic Experiences</h3>
+                    <p>No tourist traps. Only genuine, local-curated adventures for real discovery.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">🛡️</div>
+                    <h3>Safety & Trust</h3>
+                    <p>Verified guides, secure payments in THB, and 24/7 traveler support.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">💡</div>
+                    <h3>Innovation</h3>
+                    <p>AI-powered itineraries and smart search to personalize every journey.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">🌍</div>
+                    <h3>Cultural Bridge</h3>
+                    <p>Creating meaningful connections between travelers and local cultures.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TEAM -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title text-center">Meet the <span class="text-orange">Team</span></h2>
+            <p class="section-subtitle text-center">Passionate developers building the future of local tourism</p>
+            <div class="team-grid" style="grid-template-columns: repeat(4, 1fr);">
+                <div class="team-card">
+                    <div class="team-avatar">THN</div>
+                    <h4>Thet Htoo Naing</h4>
+                    <span>Project Lead & Full-Stack Developer</span>
+                    <p>Architected the platform's core systems, search engine, and booking simulation.</p>
+                </div>
+                <div class="team-card">
+                    <div class="team-avatar">KMH</div>
+                    <h4>Kaung Myat Hein</h4>
+                    <span>UI/UX Designer & Frontend Developer</span>
+                    <p>Designed the visual identity, responsive layouts, and dark/light mode theming.</p>
+                </div>
+                <div class="team-card">
+                    <div class="team-avatar">PTK</div>
+                    <h4>Paing Thukha Kyaw</h4>
+                    <span>Feature Developer & Data Architect</span>
+                    <p>Built the itinerary builder, marketplace engine, and localStorage data layer.</p>
+                </div>
+                <div class="team-card">
+                    <div class="team-avatar">YZA</div>
+                    <h4>Ye Zayar Aung</h4>
+                    <span>Backend Simulation & QA Engineer</span>
+                    <p>Implemented the mock booking system, form validation, and cross-browser testing.</p>
+                </div>
+            </div>
+            <div class="team-grid" style="grid-template-columns: repeat(4, 1fr); margin-top: 24px;">
+                <div class="team-card">
+                    <div class="team-avatar">KKK</div>
+                    <h4>Kyawt Kay Khine</h4>
+                    <span>Content Strategist & UX Researcher</span>
+                    <p>Curated travel content, designed user flows, and created the merch shop experience.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS -->
+    <section class="section" style="padding-top:0;">
+        <div class="container">
+            <div class="stats-bar">
+                <div class="stat-item">
+                    <div class="stat-num">10K+</div>
+                    <div class="stat-label">Happy Travelers</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-num">500+</div>
+                    <div class="stat-label">Local Experiences</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-num">77</div>
+                    <div class="stat-label">Provinces Covered</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-num">฿50M+</div>
+                    <div class="stat-label">Revenue to Locals</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-logo">✈ Travel<span class="text-orange">Pro</span></div>
+                    <p>Your gateway to authentic Thai experiences. We connect travelers with local communities for
+                        unforgettable adventures.</p>
+                </div>
+                <div>
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Destinations</h4>
+                    <ul>
+                        <li><a href="#">Bangkok</a></li>
+                        <li><a href="#">Chiang Mai</a></li>
+                        <li><a href="#">Phuket</a></li>
+                        <li><a href="#">Krabi</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="contact.html">Help Center</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>© 2026 Travel Pro. All rights reserved. Prices in Thai Baht (฿).</span>
+                <div class="footer-social">
+                    <a href="#" title="Facebook">f</a>
+                    <a href="#" title="Twitter">𝕏</a>
+                    <a href="#" title="Instagram">📷</a>
+                    <a href="#" title="YouTube">▶</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- AUTH MODAL -->
+    <div class="modal-overlay" id="auth-modal">
+        <div class="modal">
+            <button class="modal-close">✕</button>
+            <h2>Welcome to Travel<span class="text-orange">Pro</span></h2>
+            <p>Sign in to access your personalized travel dashboard</p>
+            <div class="auth-tabs">
+                <div class="auth-tab active" data-tab="login">Login</div>
+                <div class="auth-tab" data-tab="signup">Sign Up</div>
+            </div>
+            <form id="login-form">
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" class="form-input" name="login-email" placeholder="you@example.com">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" class="form-input" name="login-password" placeholder="Enter your password">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">Login</button>
+                <div class="auth-divider">or continue with</div>
+                <div class="social-btns">
+                    <button type="button" class="social-btn"
+                        onclick="showToast('Google login — coming soon!','info')">🔵 Google</button>
+                    <button type="button" class="social-btn"
+                        onclick="showToast('Facebook login — coming soon!','info')">🔷 Facebook</button>
+                </div>
+            </form>
+            <form id="signup-form" style="display:none;">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" class="form-input" name="signup-name" placeholder="Your full name">
+                </div>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" class="form-input" name="signup-email" placeholder="you@example.com">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" class="form-input" name="signup-password" placeholder="Min 6 characters">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">Create
+                    Account</button>
+                <div class="auth-divider">or continue with</div>
+                <div class="social-btns">
+                    <button type="button" class="social-btn"
+                        onclick="showToast('Google signup — coming soon!','info')">🔵 Google</button>
+                    <button type="button" class="social-btn"
+                        onclick="showToast('Facebook signup — coming soon!','info')">🔷 Facebook</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="../js/script.js"></script>
+</body>
+
+</html>
