@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Travel Pro Admin - Dashboard">
+  <title>Admin Dashboard — Travel Pro</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <script>!function () { var t = localStorage.getItem('theme') || 'light'; document.documentElement.setAttribute('data-theme', t); }();</script>
+  <style>
+    .admin-shell { display:grid; grid-template-columns: 260px 1fr; gap: 18px; }
+    .admin-sidebar { background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; padding: 16px; position: sticky; top: 88px; height: fit-content; }
+    .admin-sidebar h3 { font-size: 1rem; margin: 0 0 10px; }
+    .admin-nav { display:flex; flex-direction:column; gap:8px; }
+    .admin-nav button { width:100%; justify-content:flex-start; }
+    .admin-topbar { display:flex; align-items:center; justify-content:space-between; gap: 12px; margin-bottom: 16px; }
+    .admin-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; padding: 16px; }
+    .admin-table { width:100%; border-collapse: collapse; }
+    .admin-table th, .admin-table td { padding: 10px 8px; border-bottom: 1px solid var(--border); vertical-align: top; font-size: .9rem; }
+    .admin-table th { text-align:left; color: var(--text-medium); font-weight: 800; }
+    .admin-actions { display:flex; gap: 8px; flex-wrap: wrap; }
+    .pill-mini { display:inline-flex; align-items:center; padding: 2px 10px; border-radius: 999px; border: 1px solid var(--border); font-size: .75rem; color: var(--text-medium); }
+    @media (max-width: 980px){ .admin-shell{ grid-template-columns: 1fr; } .admin-sidebar{ position: relative; top: 0; } }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-logo">
+        <div class="logo-icon">✈</div>
+        <span>Travel<span class="text-orange">Pro</span> <span style="opacity:.7;font-weight:700">Admin</span></span>
+      </a>
+      <div class="nav-actions">
+        <span class="nav-time" id="nav-datetime"></span>
+        <button class="theme-toggle" title="Toggle dark/light mode" aria-label="Toggle theme">🌙</button>
+        <button class="btn btn-outline btn-sm" id="admin-logout-btn">🚪 Logout</button>
+      </div>
+    </div>
+  </nav>
+
+  <section class="section">
+    <div class="container">
+      <div class="admin-topbar">
+        <div>
+          <h2 style="margin:0;font-size:1.6rem;font-weight:900;">Admin <span class="text-orange">Dashboard</span></h2>
+          <div style="color:var(--text-light);font-size:.9rem;margin-top:4px;">
+            Signed in as <strong id="admin-name">Admin</strong> · <span id="admin-email"></span>
+          </div>
+        </div>
+        <div class="admin-actions">
+          <span class="pill-mini" id="admin-status-pill">Checking session…</span>
+        </div>
+      </div>
+
+      <div class="admin-card" id="admin-stats" style="margin-bottom:18px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+          <h3 style="margin:0;font-size:1.1rem;font-weight:900;">Overview</h3>
+          <button class="btn btn-outline btn-sm" id="admin-refresh-btn">↻ Refresh</button>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:12px;" id="admin-stats-grid">
+          <div class="pill-mini">Loading stats…</div>
+        </div>
+        <style>
+          @media (max-width: 980px){ #admin-stats-grid{ grid-template-columns:repeat(2,minmax(0,1fr)) !important; } }
+          @media (max-width: 520px){ #admin-stats-grid{ grid-template-columns:1fr !important; } }
+        </style>
+        <div style="color:var(--text-light);font-size:.85rem;margin-top:10px;">
+          Tip: Use search boxes inside each section to quickly find records.
+        </div>
+      </div>
+
+      <div class="admin-shell">
+        <aside class="admin-sidebar">
+          <h3>Manage</h3>
+          <div class="admin-nav">
+            <button class="btn btn-outline btn-sm" data-admin-tab="packages">📦 Travel Packages</button>
+            <button class="btn btn-outline btn-sm" data-admin-tab="reviews">⭐ Reviews & Replies</button>
+            <button class="btn btn-outline btn-sm" data-admin-tab="messages">✉️ Contact Messages</button>
+            <button class="btn btn-outline btn-sm" data-admin-tab="users">👤 User Accounts</button>
+          </div>
+        </aside>
+
+        <main style="display:flex;flex-direction:column;gap:18px;">
+          <div class="admin-card" id="admin-tab-packages" style="display:none;">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+              <h3 style="margin:0;font-size:1.15rem;font-weight:900;">Travel Packages</h3>
+              <div class="admin-actions">
+                <input class="form-input" id="pkg-search" placeholder="Search packages…" style="max-width:280px;">
+                <button class="btn btn-outline btn-sm" id="pkg-seed-demo-btn">Seed Demo</button>
+                <button class="btn btn-outline btn-sm" id="pkg-assign-images-btn">Assign Images</button>
+                <button class="btn btn-primary btn-sm" id="pkg-new-btn">+ Add Package</button>
+              </div>
+            </div>
+            <div id="pkg-form-wrap" style="display:none;margin-top:14px;">
+              <form id="pkg-form">
+                <input type="hidden" name="id" value="">
+                <div class="form-row">
+                  <div class="form-group" style="flex:1;">
+                    <label>Title *</label>
+                    <input class="form-input" name="title" placeholder="Bangkok Night Market Tour">
+                    <div class="form-error"></div>
+                  </div>
+                  <div class="form-group" style="flex:1;">
+                    <label>Location *</label>
+                    <input class="form-input" name="location" placeholder="Bangkok, Chatuchak">
+                    <div class="form-error"></div>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group" style="flex:1;">
+                    <label>Category *</label>
+                    <input class="form-input" name="category" placeholder="adventure / culture / culinary">
+                    <div class="form-error"></div>
+                  </div>
+                  <div class="form-group" style="flex:1;">
+                    <label>Badge</label>
+                    <input class="form-input" name="badge" placeholder="Popular / Top Rated">
+                    <div class="form-error"></div>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group" style="flex:1;">
+                    <label>Price (THB) *</label>
+                    <input class="form-input" name="price" type="number" min="1" placeholder="2500">
+                    <div class="form-error"></div>
+                  </div>
+                  <div class="form-group" style="flex:1;">
+                    <label>Package Image</label>
+                    <select class="form-input" id="pkg-image-select">
+                      <option value="">Select from gallery…</option>
+                    </select>
+                    <div style="display:flex;gap:10px;align-items:center;margin-top:10px;flex-wrap:wrap;">
+                      <input class="form-input" id="pkg-image-file" type="file" accept="image/*" style="max-width:260px;">
+                      <button type="button" class="btn btn-outline btn-sm" id="pkg-image-upload-btn">Upload</button>
+                      <span class="pill-mini" id="pkg-image-upload-status" style="display:none;"></span>
+                    </div>
+                    <div style="margin-top:12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+                      <div class="pill-mini">Preview</div>
+                      <img id="pkg-image-preview" alt="Package preview" style="width:88px;height:60px;object-fit:cover;border-radius:10px;border:1px solid var(--border);background:var(--bg-light);" />
+                    </div>
+                    <input class="form-input" name="image" placeholder="uploads/your_image.png or https://..." style="margin-top:10px;">
+                    <div class="form-error"></div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Description</label>
+                  <textarea class="form-input" name="description" rows="3" placeholder="Short description..."></textarea>
+                  <div class="form-error"></div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group" style="flex:1;">
+                    <label>Active</label>
+                    <select class="form-input" name="is_active">
+                      <option value="1">Active</option>
+                      <option value="0">Hidden</option>
+                    </select>
+                    <div class="form-error"></div>
+                  </div>
+                  <div class="form-group" style="flex:1;display:flex;align-items:flex-end;gap:10px;">
+                    <button type="submit" class="btn btn-primary" style="justify-content:center;flex:1;">Save</button>
+                    <button type="button" class="btn btn-outline" id="pkg-cancel-btn" style="justify-content:center;">Cancel</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div style="margin-top:16px; overflow:auto;">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Status</th>
+                    <th style="width:220px;">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="pkg-table-body">
+                  <tr><td colspan="6" style="color:var(--text-light);">Loading…</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="admin-card" id="admin-tab-reviews" style="display:none;">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+              <h3 style="margin:0;font-size:1.15rem;font-weight:900;">Reviews & Admin Replies</h3>
+              <input class="form-input" id="review-search" placeholder="Search reviews…" style="max-width:280px;">
+            </div>
+            <div id="reviews-wrap" style="display:flex;flex-direction:column;gap:12px;"></div>
+          </div>
+
+          <div class="admin-card" id="admin-tab-messages" style="display:none;">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+              <h3 style="margin:0;font-size:1.15rem;font-weight:900;">Contact Messages</h3>
+              <input class="form-input" id="msg-search" placeholder="Search messages…" style="max-width:280px;">
+            </div>
+            <div style="overflow:auto;">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>From</th>
+                    <th>Subject</th>
+                    <th>Status</th>
+                    <th style="width:220px;">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="msg-table-body">
+                  <tr><td colspan="5" style="color:var(--text-light);">Loading…</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div id="msg-detail" style="margin-top:14px;display:none;"></div>
+          </div>
+
+          <div class="admin-card" id="admin-tab-users" style="display:none;">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+              <h3 style="margin:0;font-size:1.15rem;font-weight:900;">User Accounts</h3>
+              <input class="form-input" id="user-search" placeholder="Search users…" style="max-width:280px;">
+            </div>
+            <div style="overflow:auto;">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Created</th>
+                    <th>Status</th>
+                    <th style="width:220px;">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="user-table-body">
+                  <tr><td colspan="6" style="color:var(--text-light);">Loading…</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  </section>
+
+  <script src="../js/script.js"></script>
+  <script src="../js/admin.js"></script>
+</body>
+
+</html>
+
